@@ -8,9 +8,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5.0f;
     private bool isOnGround = true;
     private Rigidbody playerRb;
+    private BoxCollider playerCollider;
+    public Transform seconds;
+    private bool hasPowerup = false;
     // Start is called before the first frame update
     void Start()
     {
+        playerCollider = GetComponent<BoxCollider>();
         playerRb = GetComponent<Rigidbody>();
     }
 
@@ -19,9 +23,8 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-
-        playerRb.AddForce(Vector3.forward * speed * verticalInput);
-        playerRb.AddForce(Vector3.right * speed * horizontalInput);
+        transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime, Space.World);
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
@@ -30,11 +33,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-     private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
+        }
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Powerup"))
+        {
+            gameObject.tag = "Untagged";
+            hasPowerup = true;
+            Destroy(other.gameObject);
+            Debug.Log("Had Power");
+            //StartCoroutine(PowerupCountdownRoutine());
+            //powerupIndicator.gameObject.SetActive(true);
+        }
+
+        if (other.CompareTag("Fence") && gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+
+        if (other.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("+1");
         }
     }
 }
