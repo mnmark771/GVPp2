@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveRight : MonoBehaviour
 {
+    private float speed = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,10 @@ public class MoveRight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * 3.0f);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if (transform.position.x >= 15)
+        {
+            Destroy(gameObject);
+        }
     }
 }

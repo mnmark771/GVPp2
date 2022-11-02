@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         SpawnEnemyWave(waveNumber);
-        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+        SpawnCoin();
     }
 
     // Update is called once per frame
@@ -45,5 +45,10 @@ public class SpawnManager : MonoBehaviour
         Vector3 randomPos = new Vector3(spawnPosX, 0, spawnPosZ);
 
         return randomPos;
+    }
+
+    void SpawnCoin()
+    {
+        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
 }
