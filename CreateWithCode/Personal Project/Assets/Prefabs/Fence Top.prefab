@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 862030129794440683}
   - component: {fileID: 4642270031302930659}
   - component: {fileID: 6401646955204854409}
-  - component: {fileID: 2312064189975418578}
+  - component: {fileID: 229334056492374613}
   m_Layer: 0
   m_Name: Fence Top
   m_TagString: Fence
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2317867669294245526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 10}
-  m_LocalScale: {x: 10, y: 0.5, z: 1}
+  m_LocalScale: {x: 20, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2312064189975418578
+--- !u!114 &229334056492374613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2317867669294245526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ca84e8f355f0e4b814e3e50e0aece9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6edfc903ea651634eacab642fe9acc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3

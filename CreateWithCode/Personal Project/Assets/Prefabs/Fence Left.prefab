@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6526537780706032384}
   - component: {fileID: 3232184664404569151}
   - component: {fileID: 2256254302489154951}
-  - component: {fileID: 2176511145076785888}
+  - component: {fileID: -8387259876263377948}
   m_Layer: 0
   m_Name: Fence Left
   m_TagString: Fence
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3512472171846016447}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -10, y: 0.5, z: 0}
-  m_LocalScale: {x: 10, y: 0.5, z: 1}
+  m_LocalScale: {x: 20, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2176511145076785888
+--- !u!114 &-8387259876263377948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3512472171846016447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f879109e98e6692408bbcaa121a858fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 6edfc903ea651634eacab642fe9acc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
