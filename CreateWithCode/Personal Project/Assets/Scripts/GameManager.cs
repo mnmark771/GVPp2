@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour
 
     public void UpdateSpeed()
     {
-        if (fenceSpeed < 4.5f)
+        if (fenceSpeed < 5.5f)
         {
-            fenceSpeed += 0.1f;
+            fenceSpeed += 0.15f;
         }
     }
 

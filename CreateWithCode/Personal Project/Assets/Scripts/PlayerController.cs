@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Keep player in bounds
         if (transform.position.x < -Range)
             
             {
@@ -62,12 +63,14 @@ public class PlayerController : MonoBehaviour
             }
 
 
-
-
+        //Powerup indicator follows player
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+
+        //Get movement input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
+        //Move player, look in direction of movement, animate movement
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         if (gameManager.isGameActive == true)
         {
@@ -92,6 +95,8 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime, Space.World);
         //transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime, Space.World);
 
+
+        //Get jumping input
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && gameManager.isGameActive == true)
         {
             playerAnim.SetFloat("Speed_f", 0);
@@ -123,11 +128,9 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Fence") && gameObject.CompareTag("Player"))
         {
-            //playerAnim.Play("Death_01");
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
             gameManager.GameOver();
-            //Destroy(gameObject);
         }
 
         if (other.CompareTag("Coin"))

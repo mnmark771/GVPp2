@@ -48,14 +48,14 @@ public class SpawnManager : MonoBehaviour
         coinCount = GameObject.FindGameObjectsWithTag("Coin").Length;
         if (coinCount <= 0)
         {
-            if (interpolationPeriod > 3.0f)
+            if (interpolationPeriod > 2.0f)
             {
-                interpolationPeriod -= 0.033f;
+                interpolationPeriod -= 0.05f;
             }
 
-            if (interpolationPeriod < 3.0f)
+            if (interpolationPeriod < 2.0f)
             {
-                interpolationPeriod = 3.0f;
+                interpolationPeriod = 2.0f;
             }
             SpawnCoin();
             
@@ -68,7 +68,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnFence()
     {
-        var obstacleType = Random.Range(1, 8);
+        var obstacleType = Random.Range(1, 7);
         if (obstacleType == 1 || obstacleType == 2)
         {
             SingleFence();
