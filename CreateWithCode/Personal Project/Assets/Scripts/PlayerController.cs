@@ -5,24 +5,32 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private GameManager gameManager;
-
-    private float speed = 5.0f;
-    public float jumpForce = 5.0f;
-    private float Range = 9.5f;
-
-    private bool isOnGround = false;
-    private bool hasPowerup = false;
-
     private Rigidbody playerRb;
     private BoxCollider playerCollider;
     private Animator playerAnim;
     private AudioSource playerAudio;
-    public AudioClip jumpSound;
-
+    
     public Transform seconds;
     public GameObject powerupIndicator;
+
+    public ParticleSystem coinParticle;
+    public ParticleSystem powerupParticle;
+
+    public AudioClip jumpSound;
+    public AudioClip hitSound;
+    public AudioClip coinSound;
+    public AudioClip powerupSound;
+    public AudioClip powerupWarningSound;
+
     public int pointValue = 1;
+
     public float rotationSpeed;
+    public float jumpForce = 5.0f;
+    private float speed = 5.0f;
+    private float Range = 9.5f;
+
+    private bool isOnGround = false;
+    private bool hasPowerup = false;
 
     //public GameObject powerupIndicator;
 
@@ -30,9 +38,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerAnim = GameObject.Find("Player Model").GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider>();
         playerRb = GetComponent<Rigidbody>();
-        playerAnim = GameObject.Find("Player Model").GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -99,6 +108,7 @@ public class PlayerController : MonoBehaviour
         //Get jumping input
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && gameManager.isGameActive == true)
         {
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
             playerAnim.SetFloat("Speed_f", 0);
             playerAnim.SetTrigger("Jump_trig");
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -119,6 +129,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Powerup") && !hasPowerup)
         {
+            playerAudio.PlayOneShot(powerupSound, 1.0f);
+            powerupParticle.Play();
             gameObject.tag = "Untagged";
             hasPowerup = true;
             Destroy(other.gameObject);
@@ -128,6 +140,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Fence") && gameObject.CompareTag("Player"))
         {
+            playerAudio.PlayOneShot(hitSound, 1.0f);
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
             gameManager.GameOver();
@@ -135,9 +148,11 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Coin"))
         {
+            coinParticle.Play();
             Destroy(other.gameObject);
             gameManager.UpdateScore(pointValue);
             gameManager.UpdateSpeed();
+            playerAudio.PlayOneShot(coinSound, 1.0f);
         }
     }
 
@@ -147,10 +162,12 @@ public class PlayerController : MonoBehaviour
         powerupIndicator.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.4f);
         powerupIndicator.gameObject.SetActive(true);
+        playerAudio.PlayOneShot(powerupWarningSound, 1.0f);
         yield return new WaitForSeconds(0.4f);
         powerupIndicator.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.4f);
         powerupIndicator.gameObject.SetActive(true);
+        playerAudio.PlayOneShot(powerupWarningSound, 1.0f);
         yield return new WaitForSeconds(0.4f);
         gameObject.tag = "Player";
         hasPowerup = false;

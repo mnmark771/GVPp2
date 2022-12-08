@@ -8,11 +8,15 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
+    private AudioSource gameManagerAudio;
+
     private MeshRenderer meshMaterial;
     private MeshRenderer floorMaterial;
 
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreText;
+
+    public AudioClip clicksound;
 
     public Button playButton;
     public Button restartButton;
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         meshMaterial = mountains.GetComponent<MeshRenderer>();
         floorMaterial = floor.GetComponent<MeshRenderer>();
+        gameManagerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -77,8 +82,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        //fogButton.gameObject.SetActive(false);
-        //timeButton.gameObject.SetActive(false);
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         visualsButton.gameObject.SetActive(false);
         titleScreen.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(true);
@@ -97,11 +101,13 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ChangeVisuals()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         if (visualsMenu)
         {
             visualsMenu = false;
@@ -127,6 +133,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTime()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         if (day == true)
         {
             GameObject.Find("Time Button").GetComponentInChildren<TextMeshProUGUI>().text = "Night";
@@ -148,6 +155,7 @@ public class GameManager : MonoBehaviour
 
     public void FogControl()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         if (foggy == true)
         {
             GameObject.Find("Fog Button").GetComponentInChildren<TextMeshProUGUI>().text = "Fog: OFF";
@@ -165,6 +173,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeBackgroundTexture()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         if (backgroundNumber == 1)
         {
             meshMaterial.material = Default;
@@ -198,6 +207,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeFloorTexture()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         if (floorNumber == 1)
         {
             floorMaterial.material = Concrete;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private GameManager gameManager;
+
     public GameObject powerupPrefab;
     public GameObject fenceBottom;
     public GameObject fenceTop;
@@ -13,15 +14,15 @@ public class SpawnManager : MonoBehaviour
     public GameObject coinPrefab;
 
     private int coinCount;
+
+    public float interpolationPeriod = 4.0f;
     private float pointsForPower = 5;
     private float spawnRange = 6.5f;
     private float spawnPosX = 0.0f;
     private float spawnPosZ = 0.0f;
     private float startDelay = 2.0f;
     private float repeatRate = 4.0f;
-
     private float time = 0.0f;
-    public float interpolationPeriod = 4.0f;
 
     // Start is called before the first frame update
     
@@ -35,6 +36,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If game is playing then spawn a fence every certain period of time
         if (gameManager.isGameActive == true)
         {
             time += Time.deltaTime;
@@ -45,6 +47,7 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
+        //Decrease time between fences spawning when a coin is collected
         coinCount = GameObject.FindGameObjectsWithTag("Coin").Length;
         if (coinCount <= 0)
         {
@@ -82,14 +85,6 @@ public class SpawnManager : MonoBehaviour
         if (obstacleType == 5 || obstacleType == 6)
         {
             DoubleFence();
-        }
-
-        if (obstacleType == 7)
-        {
-            Instantiate(fenceTop, fenceTop.transform.position, fenceTop.transform.rotation);
-            Instantiate(fenceRight, fenceRight.transform.position, fenceRight.transform.rotation);
-            Instantiate(fenceBottom, fenceBottom.transform.position, fenceBottom.transform.rotation);
-            Instantiate(fenceLeft, fenceLeft.transform.position, fenceLeft.transform.rotation);
         }
     }
 
