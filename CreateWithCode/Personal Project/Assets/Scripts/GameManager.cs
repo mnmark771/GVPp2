@@ -66,97 +66,7 @@ public class GameManager : MonoBehaviour
         meshMaterial = mountains.GetComponent<MeshRenderer>();
         floorMaterial = floor.GetComponent<MeshRenderer>();
         gameManagerAudio = GetComponent<AudioSource>();
-
-        if (PlayerPrefs.GetInt("parcipitation pref") == 2)
-        {
-            rain.gameObject.SetActive(true);
-            snow.gameObject.SetActive(false);
-        }
-
-        else if (PlayerPrefs.GetInt("parcipitation pref") == 3)
-        {
-            rain.gameObject.SetActive(false);
-            snow.gameObject.SetActive(true);
-        }
-
-        else if (PlayerPrefs.GetInt("parcipitation pref") == 1)
-        {
-            rain.gameObject.SetActive(false);
-            snow.gameObject.SetActive(false);
-        }
-
-        if (PlayerPrefs.GetInt("floor pref") == 2)
-        {
-            floorMaterial.material = Concrete;
-        }
-
-        else if (PlayerPrefs.GetInt("floor pref") == 3)
-        {
-            floorMaterial.material = Sand;
-        }
-
-        else if (PlayerPrefs.GetInt("floor pref") == 4)
-        {
-            floorMaterial.material = Gravel;
-        }
-
-        else if (PlayerPrefs.GetInt("floor pref") == 1)
-        {
-            floorMaterial.material = Grass;
-        }
-
-        if (PlayerPrefs.GetInt("background pref") == 2)
-        {
-            meshMaterial.material = Default;
-        }
-
-        else if (PlayerPrefs.GetInt("background pref") == 3)
-        {
-            meshMaterial.material = Concrete;
-        }
-
-        else if (PlayerPrefs.GetInt("background pref") == 4)
-        {
-            meshMaterial.material = Sand;
-        }
-
-        else if (PlayerPrefs.GetInt("background pref") == 5)
-        {
-            meshMaterial.material = Gravel;
-        }
-
-        else if (PlayerPrefs.GetInt("background pref") == 1)
-        {
-            meshMaterial.material = Grass;
-        }
-
-        if (PlayerPrefs.GetInt("fog pref") == 2)
-        {
-            fog.gameObject.SetActive(false);
-            foggy = false;
-        }
-
-        else if (PlayerPrefs.GetInt("fog pref") == 1)
-        {
-            fog.gameObject.SetActive(true);
-            foggy = true;
-        }
-
-        if (PlayerPrefs.GetInt("time pref") == 2)
-        {
-            sun.gameObject.SetActive(false);
-            mountains.gameObject.SetActive(false);
-            skydome.gameObject.SetActive(true);
-            day = false;
-        }
-
-        else if (PlayerPrefs.GetInt("time pref") == 1)
-        {
-            sun.gameObject.SetActive(true);
-            mountains.gameObject.SetActive(true);
-            skydome.gameObject.SetActive(false);
-            day = true;
-        }
+        UpdateVisualsToPreferences();
     }
 
     // Update is called once per frame
@@ -224,41 +134,7 @@ public class GameManager : MonoBehaviour
             backgroundButton.gameObject.SetActive(true);
             floorButton.gameObject.SetActive(true);
             parcipitationButton.gameObject.SetActive(true);
-
-            if (PlayerPrefs.GetInt("parcipitation pref") == 2)
-            {
-                GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: Rain";
-            }
-
-            else if (PlayerPrefs.GetInt("parcipitation pref") == 3)
-            {
-                GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: Snow";
-            }
-
-            else if (PlayerPrefs.GetInt("parcipitation pref") == 1)
-            {
-                GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: None";
-            }
-
-            if (foggy == true)
-            {
-                GameObject.Find("Fog Button").GetComponentInChildren<TextMeshProUGUI>().text = "Fog: ON";
-            }
-
-            else if (foggy == false)
-            {
-                GameObject.Find("Fog Button").GetComponentInChildren<TextMeshProUGUI>().text = "Fog: OFF";
-            }
-
-            if (day == true)
-            {
-                GameObject.Find("Time Button").GetComponentInChildren<TextMeshProUGUI>().text = "Day";
-            }
-
-            else if (day == false)
-            {
-                GameObject.Find("Time Button").GetComponentInChildren<TextMeshProUGUI>().text = "Night";
-            }
+            UpdateVisualsText();
         }
 
         else if (!visualsMenu)
@@ -416,6 +292,138 @@ public class GameManager : MonoBehaviour
             snow.gameObject.SetActive(false);
             parcipitationType = 1;
             PlayerPrefs.SetInt("parcipitation pref", 1);
+        }
+    }
+
+    public void UpdateVisualsToPreferences()
+    {
+        if (PlayerPrefs.GetInt("parcipitation pref") == 2)
+        {
+            rain.gameObject.SetActive(true);
+            snow.gameObject.SetActive(false);
+        }
+
+        else if (PlayerPrefs.GetInt("parcipitation pref") == 3)
+        {
+            rain.gameObject.SetActive(false);
+            snow.gameObject.SetActive(true);
+        }
+
+        else if (PlayerPrefs.GetInt("parcipitation pref") == 1)
+        {
+            rain.gameObject.SetActive(false);
+            snow.gameObject.SetActive(false);
+        }
+
+        if (PlayerPrefs.GetInt("floor pref") == 2)
+        {
+            floorMaterial.material = Concrete;
+        }
+
+        else if (PlayerPrefs.GetInt("floor pref") == 3)
+        {
+            floorMaterial.material = Sand;
+        }
+
+        else if (PlayerPrefs.GetInt("floor pref") == 4)
+        {
+            floorMaterial.material = Gravel;
+        }
+
+        else if (PlayerPrefs.GetInt("floor pref") == 1)
+        {
+            floorMaterial.material = Grass;
+        }
+
+        if (PlayerPrefs.GetInt("background pref") == 2)
+        {
+            meshMaterial.material = Default;
+        }
+
+        else if (PlayerPrefs.GetInt("background pref") == 3)
+        {
+            meshMaterial.material = Concrete;
+        }
+
+        else if (PlayerPrefs.GetInt("background pref") == 4)
+        {
+            meshMaterial.material = Sand;
+        }
+
+        else if (PlayerPrefs.GetInt("background pref") == 5)
+        {
+            meshMaterial.material = Gravel;
+        }
+
+        else if (PlayerPrefs.GetInt("background pref") == 1)
+        {
+            meshMaterial.material = Grass;
+        }
+
+        if (PlayerPrefs.GetInt("fog pref") == 2)
+        {
+            fog.gameObject.SetActive(false);
+            foggy = false;
+        }
+
+        else if (PlayerPrefs.GetInt("fog pref") == 1)
+        {
+            fog.gameObject.SetActive(true);
+            foggy = true;
+        }
+
+        if (PlayerPrefs.GetInt("time pref") == 2)
+        {
+            sun.gameObject.SetActive(false);
+            mountains.gameObject.SetActive(false);
+            skydome.gameObject.SetActive(true);
+            day = false;
+        }
+
+        else if (PlayerPrefs.GetInt("time pref") == 1)
+        {
+            sun.gameObject.SetActive(true);
+            mountains.gameObject.SetActive(true);
+            skydome.gameObject.SetActive(false);
+            day = true;
+        }
+    }
+
+    public void UpdateVisualsText()
+    {
+        if (PlayerPrefs.GetInt("parcipitation pref") == 2)
+        {
+            GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: Rain";
+        }
+
+        else if (PlayerPrefs.GetInt("parcipitation pref") == 3)
+        {
+            GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: Snow";
+        }
+
+        else if (PlayerPrefs.GetInt("parcipitation pref") == 1)
+        {
+            GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: None";
+        }
+
+        if (foggy == true)
+        {
+            GameObject.Find("Fog Button").GetComponentInChildren<TextMeshProUGUI>().text = "Fog: ON";
+        }
+
+        else if (foggy == false)
+        {
+            GameObject.Find("Fog Button").GetComponentInChildren<TextMeshProUGUI>().text = "Fog: OFF";
+        }
+
+        if (day == true)
+        {
+            GameObject.Find("Time Button").GetComponentInChildren<TextMeshProUGUI>().text = "Day";
+        }
+
+        else if (day == false)
+        {
+            GameObject.Find("Time Button").GetComponentInChildren<TextMeshProUGUI>().text = "Night";
         }
     }
 }
