@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a926c22a17f071940b7cbcdcac7f174d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - grass: {fileID: 8331690687313823136, guid: 7c8dc9bbb7ecd3e4cacc1c18b2306956, type: 3}
+  - enemy: {fileID: 1940945046889889428, guid: 92e93ee9ea7224e489c7fd7a806d1632, type: 3}
+  - portal: {fileID: 7277954854549760481, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
+  - spikeTrap: {fileID: 8754563087730997050, guid: 2f08d3aff3d20744e9ba53a062f9e1da, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

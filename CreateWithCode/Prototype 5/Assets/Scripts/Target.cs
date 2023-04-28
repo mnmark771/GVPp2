@@ -45,7 +45,7 @@ public class Target : MonoBehaviour
     {
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
     }
-
+/*
     private void OnMouseDown()
     {
         if (gameManager.isGameActive)
@@ -55,13 +55,26 @@ public class Target : MonoBehaviour
             gameManager.UpdateScore(pointValue);
         }
     }
+*/
 
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        if (!gameObject.CompareTag("Bad"))
+        //If the obect is not bad and the game is playing then a take away a life on a collision
+        if (!gameObject.CompareTag("Bad") && gameManager.isGameActive)
         {
-            gameManager.GameOver();
+            //call to UpdateLives method in gamemanager script and suptacting 1 life when a goo
+            gameManager.UpdateLives(-1);
+        }
+    }
+
+    public void DestroyTarget()
+    {
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
         }
     }
 }

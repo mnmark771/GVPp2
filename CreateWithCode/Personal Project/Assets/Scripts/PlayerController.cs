@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviour
     private bool isOnGround = false;
     private bool hasPowerup = false;
 
-    //public GameObject powerupIndicator;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -100,10 +98,6 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetFloat("Speed_f", 0);
         }
-
-        //transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime, Space.World);
-        //transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime, Space.World);
-
 
         //Get jumping input
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && gameManager.isGameActive == true)

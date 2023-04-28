@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
     public GameObject mountains;
     public GameObject skydome;
     public GameObject floor;
-    public GameObject snow;
-    public GameObject rain;
+    public ParticleSystem snow;
+    public ParticleSystem rain;
     public GameObject fog;
     public GameObject sun;
 
@@ -267,6 +267,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeParcipitation()
     {
+        gameManagerAudio.PlayOneShot(clicksound, 1.0f);
         if (parcipitationType == 1)
         {
             GameObject.Find("Parcipitation Button").GetComponentInChildren<TextMeshProUGUI>().text = "Parcipitation: Rain";
@@ -299,20 +300,26 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("parcipitation pref") == 2)
         {
-            rain.gameObject.SetActive(true);
-            snow.gameObject.SetActive(false);
+            rain.Play();
+            snow.Stop();
+            //rain.gameObject.SetActive(true);
+            //snow.gameObject.SetActive(false);
         }
 
         else if (PlayerPrefs.GetInt("parcipitation pref") == 3)
         {
-            rain.gameObject.SetActive(false);
-            snow.gameObject.SetActive(true);
+            rain.Stop();
+            snow.Play();
+            //rain.gameObject.SetActive(false);
+            //snow.gameObject.SetActive(true);
         }
 
         else if (PlayerPrefs.GetInt("parcipitation pref") == 1)
         {
-            rain.gameObject.SetActive(false);
-            snow.gameObject.SetActive(false);
+            rain.Stop();
+            snow.Stop();
+            //rain.gameObject.SetActive(false);
+            //snow.gameObject.SetActive(false);
         }
 
         if (PlayerPrefs.GetInt("floor pref") == 2)

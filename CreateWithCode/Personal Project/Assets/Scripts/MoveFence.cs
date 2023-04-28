@@ -61,22 +61,12 @@ public class MoveFence : MonoBehaviour
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
 
-        if (transform.position.z >= 20)
+        if (transform.position.z >= 20 || transform.position.z <= -20)
         {
             Destroy(gameObject);
         }
 
-        if (transform.position.z <= -20)
-        {
-            Destroy(gameObject);
-        }
-
-        if (transform.position.x >= 20)
-        {
-            Destroy(gameObject);
-        }
-
-        if (transform.position.x <= -20)
+        if (transform.position.x >= 20 || transform.position.x <= -20)
         {
             Destroy(gameObject);
         }

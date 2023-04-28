@@ -30,7 +30,6 @@ public class SpawnManager : MonoBehaviour
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         SpawnCoin();
-        //InvokeRepeating("SpawnFence", startDelay, repeatRate);
     }
     
     // Update is called once per frame
