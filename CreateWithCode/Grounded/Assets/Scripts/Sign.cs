@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Sign : MonoBehaviour
 {
     public GameObject interactPanel;
+    public GameObject player;
     public TextMeshProUGUI interactText;
     private int textNumber = 0;
     private int signLength = 0;
@@ -25,6 +26,7 @@ public class Sign : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         textList.Add("Start");
         textList.Add(aText);
         textList.Add(bText);
@@ -63,6 +65,7 @@ public class Sign : MonoBehaviour
         textNumber = 0;
         isInteracting = false;
         interactPanel.SetActive(false);
+        player.GetComponent<PlayerController>().inMenu = false;
     }
 
     private void NextText()

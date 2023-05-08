@@ -28,9 +28,10 @@ public class PlayerProjectile : MonoBehaviour
                     detecting = false;
                 }
 
-                if (enemy.CompareTag("Dragon Boss"))
+                else if (enemy.CompareTag("Dragon Boss"))
                 {
                     enemy.GetComponent<DragonBoss>().TakeDamage(projectileDamage);
+                    detecting = false;
                 }
                 Destroy(gameObject);
             }

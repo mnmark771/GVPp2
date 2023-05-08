@@ -16,6 +16,9 @@ TagManager:
   - Life Pickup
   - Kaboom Pickup
   - Sign
+  - Boomerang
+  - Chest
+  - Shop
   layers:
   - Default
   - TransparentFX

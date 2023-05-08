@@ -21,11 +21,16 @@ public class PlayerController : MonoBehaviour
     public AudioClip coinSound;
 
     public GameObject pizzaProjectilePrefab;
+    public GameObject boomerangPrefab;
     public GameObject kaboomPrefab;
     public GameObject gameOverMenu;
+    public GameObject itemUI;
+    public GameObject shopPanel;
+
     public Transform rangePosition;
 
     public TextMeshProUGUI kaboomsText;
+    public TextMeshProUGUI healthPotionsText;
     public TextMeshProUGUI coinsText;
 
     public float knockBack;
@@ -37,20 +42,33 @@ public class PlayerController : MonoBehaviour
     private float playerDamage = 1.0f;
     private float maxHealth = 3.0f;
     private float currentHealth;
-    private int coins = 0;
-    private int kabooms = 0;
+    public int coins = 0;
+    public int kabooms = 0;
+    public int healthPotions = 0;
+    public int currentItemNumber = 0;
     private float fillTime = 0.0f;
 
     private bool isGameActive = true;
     private bool missed = true;
+    public bool hasBoomerang;
     public bool isImmortal;
+    public bool inMenu;
     private bool canMove = true;
     private bool canAttack = true;
+    private bool canBoomerang = true;
     private Vector3 movementDirection;
+
+    public string currentItem = "";
+
+    private List<string> itemList = new List<string>();
 
     // Start is called before the first frame update
     void Start()
     {
+        itemList.Add("Kaboom");
+        itemList.Add("Boomerang");
+        itemList.Add("Health Potion");
+        currentItem = "Kaboom";
         currentHealth = maxHealth;
         playerHealthbar.maxValue = maxHealth;
         playerHealthbar.value = currentHealth;
@@ -140,14 +158,98 @@ public class PlayerController : MonoBehaviour
             fillTime += 1.0f * Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && kabooms > 0)
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (currentItem == "Kaboom")
+            {
+                UseKaboom();
+            }
+
+            else if (currentItem == "Boomerang" && canBoomerang)
+            {
+                UseBoomerang();
+            }
+
+            else if (currentItem == "Health Potion")
+            {
+                UseHealthPotion();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentItemNumber = 0;
+            currentItem = itemList[0];
+            UpdateUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            currentItemNumber = 1;
+            currentItem = itemList[1];
+            UpdateUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            currentItemNumber = 2;
+            currentItem = itemList[2];
+            UpdateUI();
+        }
+        
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            currentItemNumber += Mathf.CeilToInt(Input.mouseScrollDelta.y);
+            if (currentItemNumber < 0)
+            {
+                currentItemNumber = itemList.Count - 1;
+            }
+
+            else if (currentItemNumber > itemList.Count -1)
+            {
+                currentItemNumber = 0;
+            }
+            currentItem = itemList[currentItemNumber];
+            UpdateUI();
+        }
+    }
+    
+    public void UpdateUI()
+    {
+        itemUI.transform.GetChild(0).gameObject.SetActive(false);
+        itemUI.transform.GetChild(1).gameObject.SetActive(false);
+        itemUI.transform.GetChild(2).gameObject.SetActive(false);
+        itemUI.transform.GetChild(currentItemNumber).gameObject.SetActive(true);
+        healthPotionsText.text = healthPotions.ToString();
+        kaboomsText.text = kabooms.ToString();
+        coinsText.text = coins.ToString();
+    }
+
+    private void UseKaboom()
+    {
+        if (kabooms > 0)
         {
             Instantiate(kaboomPrefab, transform.position, transform.rotation);
             kabooms -= 1;
-            kaboomsText.text = kabooms.ToString();
+            UpdateUI();
         }
+    }
 
+    private void UseBoomerang()
+    {
+        canBoomerang = false;
+        Instantiate(boomerangPrefab, transform.position, transform.rotation);
+    }
 
+    private void UseHealthPotion()
+    {
+        if (currentHealth < maxHealth && healthPotions > 0)
+        {
+            currentHealth++;
+            playerHealthbar.value = currentHealth;
+            healthPotions -= 1;
+            UpdateUI();
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -155,14 +257,14 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Coin"))
         {
             coins += 1;
-            coinsText.text = coins.ToString();
+            UpdateUI();
             Destroy(other.gameObject);
         }
 
         if (other.CompareTag("Kaboom Pickup"))
         {
             kabooms += 1;
-            kaboomsText.text = kabooms.ToString();
+            UpdateUI();
             Destroy(other.gameObject);
         }
 
@@ -183,9 +285,26 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                //canAttack = false;
-                //canMove = false;
                 other.GetComponent<Sign>().Interact();
+                inMenu = true;
+            }
+        }
+
+        if (other.CompareTag("Chest"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.GetComponent<Chest>().Open();
+            }
+        }
+
+        if (other.CompareTag("Shop"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Time.timeScale = 0;
+                shopPanel.SetActive(true);
+                inMenu = true;
             }
         }
     }
@@ -195,6 +314,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Spike Trap"))
         {
             TakeDamage(1);
+        }
+
+        else if (collision.gameObject.CompareTag("Boomerang"))
+        {
+            if (collision.gameObject.GetComponent<Boomerang>().comeBack)
+            {
+                canBoomerang = true;
+                Destroy(collision.gameObject);
+            }
         }
     }
 
