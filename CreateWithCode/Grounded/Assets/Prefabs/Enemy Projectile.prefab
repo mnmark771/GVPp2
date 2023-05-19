@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 2432
   projectileParticle: {fileID: 1516989119462257140}
 --- !u!1001 &3400732468958315323
 PrefabInstance:

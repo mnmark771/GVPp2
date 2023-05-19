@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
-    private float speed = 2.0f;
+    public float speed = 5.0f;
     private bool up;
     private bool down;
     private bool left;
@@ -13,7 +13,6 @@ public class SpikeTrap : MonoBehaviour
     private Vector3 downStop;
     private Vector3 leftStop;
     private Vector3 rightStop;
-    public LayerMask playerLayer;
     private bool vertical;
     private bool horizontal;
     private bool hasdirection;

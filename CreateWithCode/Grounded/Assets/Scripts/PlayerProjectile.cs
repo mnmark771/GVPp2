@@ -28,11 +28,36 @@ public class PlayerProjectile : MonoBehaviour
                     detecting = false;
                 }
 
+                else if (enemy.CompareTag("Wandering Enemy"))
+                {
+                    enemy.GetComponent<WanderEnemy>().TakeDamage(projectileDamage);
+                    detecting = false;
+                }
+
                 else if (enemy.CompareTag("Dragon Boss"))
                 {
                     enemy.GetComponent<DragonBoss>().TakeDamage(projectileDamage);
                     detecting = false;
                 }
+
+                else if (enemy.CompareTag("Boss Two"))
+                {
+                    enemy.GetComponent<BossTwo>().TakeDamage(projectileDamage);
+                    detecting = false;
+                }
+
+                else if (enemy.CompareTag("Head"))
+                {
+                    enemy.GetComponent<BossTwoHead>().TakeDamage(projectileDamage);
+                    detecting = false;
+                }
+
+                else if (enemy.CompareTag("Wizard Enemy"))
+                {
+                    enemy.GetComponent<WizardEnemy>().TakeDamage(projectileDamage);
+                    detecting = false;
+                }
+
                 Destroy(gameObject);
             }
         }

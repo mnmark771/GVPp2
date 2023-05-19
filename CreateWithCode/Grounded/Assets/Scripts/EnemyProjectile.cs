@@ -24,8 +24,11 @@ public class EnemyProjectile : MonoBehaviour
             Collider[] hitPlayer = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, playerLayer);
             foreach(Collider player in hitPlayer)
             {
-                detecting = false;
-                player.GetComponent<PlayerController>().TakeDamage(1);
+                if (player.CompareTag("Player"))
+                {
+                    player.GetComponent<PlayerController>().TakeDamage(1);
+                    detecting = false;
+                }
                 Destroy(gameObject);
             }
         }

@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyProjectilePrefab: {fileID: 4790294537153258934, guid: 3908ab05f1c0cac4f903131184eec231, type: 3}
+  oneUpPrefab: {fileID: 9191425406709074803, guid: 85917f88559d39b46837d9e8dc349ba3, type: 3}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
   enemyRange: 20
+  isBoss: 0

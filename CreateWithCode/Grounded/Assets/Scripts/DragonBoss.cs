@@ -5,17 +5,23 @@ using UnityEngine;
 public class DragonBoss : MonoBehaviour
 {
     public GameObject enemyProjectilePrefab;
+    public GameObject oneUpPrefab;
+
     public LayerMask playerLayer;
+
     private Vector3 startPosition;
     private Vector3 destination;
+
     public float enemyRange = 20.0f;
     private float speed = 1.0f;
     private float repeatRate = 0.0f;
     private float waitTime = 0.0f;
     private float maxHealth = 3.0f;
     private float currentHealth;
+
     private bool attacking;
     private bool hitPlayer;
+    public bool isBoss;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +90,10 @@ public class DragonBoss : MonoBehaviour
 
     public void Eliminate()
     {
+        if (isBoss)
+        {
+            Instantiate(oneUpPrefab, transform.position, transform.rotation);
+        }
         Destroy(gameObject);
     }
 }

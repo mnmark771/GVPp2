@@ -29,9 +29,13 @@ public class PlayerController : MonoBehaviour
 
     public Transform rangePosition;
 
+    public TextMeshProUGUI keysText;
     public TextMeshProUGUI kaboomsText;
     public TextMeshProUGUI healthPotionsText;
     public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI shopKaboomsText;
+    public TextMeshProUGUI shopHealthPotionsText;
+    public TextMeshProUGUI shopCoinsText;
 
     public float knockBack;
     private float rotationSpeed = 360;
@@ -42,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private float playerDamage = 1.0f;
     private float maxHealth = 3.0f;
     private float currentHealth;
+    public int keys = 0;
     public int coins = 0;
     public int kabooms = 0;
     public int healthPotions = 0;
@@ -100,6 +105,11 @@ public class PlayerController : MonoBehaviour
                 missed = false;
             }
 
+            else if (enemy.CompareTag("Wandering Enemy"))
+            {
+                enemy.GetComponent<WanderEnemy>().TakeDamage(playerDamage);
+            }
+
             else if (enemy.CompareTag("Breakable"))
             {
                 enemy.GetComponent<Breakable>().TakeDamage(playerDamage);
@@ -109,7 +119,25 @@ public class PlayerController : MonoBehaviour
             else if (enemy.CompareTag("Dragon Boss"))
             {
                 enemy.GetComponent<DragonBoss>().TakeDamage(playerDamage);
-                missed = true;
+                missed = false;
+            }
+
+            else if (enemy.CompareTag("Boss Two"))
+            {
+                enemy.GetComponent<BossTwo>().TakeDamage(playerDamage);
+                missed = false;
+            }
+
+            else if (enemy.CompareTag("Head"))
+            {
+                enemy.GetComponent<BossTwoHead>().TakeDamage(playerDamage);
+                missed = false;
+            }
+
+            else if (enemy.CompareTag("Wizard Enemy"))
+            {
+                enemy.GetComponent<WizardEnemy>().TakeDamage(playerDamage);
+                missed = false;
             }
 
             else
@@ -220,9 +248,15 @@ public class PlayerController : MonoBehaviour
         itemUI.transform.GetChild(1).gameObject.SetActive(false);
         itemUI.transform.GetChild(2).gameObject.SetActive(false);
         itemUI.transform.GetChild(currentItemNumber).gameObject.SetActive(true);
+
         healthPotionsText.text = healthPotions.ToString();
         kaboomsText.text = kabooms.ToString();
         coinsText.text = coins.ToString();
+        keysText.text = keys.ToString();
+
+        shopCoinsText.text = coins.ToString();
+        shopHealthPotionsText.text = healthPotions.ToString();
+        shopKaboomsText.text = kabooms.ToString();
     }
 
     private void UseKaboom()
@@ -261,14 +295,14 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.CompareTag("Kaboom Pickup"))
+        else if (other.CompareTag("Kaboom Pickup"))
         {
             kabooms += 1;
             UpdateUI();
             Destroy(other.gameObject);
         }
 
-        if (other.CompareTag("Life Pickup"))
+        else if (other.CompareTag("Life Pickup"))
         {
             if (currentHealth < maxHealth)
             {
@@ -276,6 +310,22 @@ public class PlayerController : MonoBehaviour
                 playerHealthbar.value = currentHealth;
                 Destroy(other.gameObject);
             }
+        }
+
+        else if (other.CompareTag("Key"))
+        {
+            keys += 1;
+            UpdateUI();
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("One Up"))
+        {
+            maxHealth += 1;
+            currentHealth = maxHealth;
+            playerHealthbar.maxValue = maxHealth;
+            playerHealthbar.value = currentHealth;
+            Destroy(other.gameObject);
         }
     }
 
@@ -290,7 +340,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Chest"))
+        else if (other.CompareTag("Chest"))
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -298,13 +348,29 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Shop"))
+        else if (other.CompareTag("Shop"))
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Time.timeScale = 0;
                 shopPanel.SetActive(true);
                 inMenu = true;
+            }
+        }
+
+        else if (other.CompareTag("Key Door"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.GetComponent<KeyDoor>().Open();
+            }
+        }
+
+        else if (other.CompareTag("Door"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Destroy(other.gameObject);
             }
         }
     }
@@ -323,6 +389,16 @@ public class PlayerController : MonoBehaviour
                 canBoomerang = true;
                 Destroy(collision.gameObject);
             }
+        }
+
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(1);
+        }
+
+        else if (collision.gameObject.CompareTag("Wandering Enemy"))
+        {
+            TakeDamage(1);
         }
     }
 

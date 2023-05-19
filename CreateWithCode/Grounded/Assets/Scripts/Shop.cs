@@ -12,6 +12,7 @@ public class Shop : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        player.GetComponent<PlayerController>().UpdateUI();
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class Shop : MonoBehaviour
 
     public void BuyKaboom()
     {
-        if (player.GetComponent<PlayerController>().coins > kaboomsPrice)
+        if (player.GetComponent<PlayerController>().coins >= kaboomsPrice)
         {
             player.GetComponent<PlayerController>().kabooms += 1;
             player.GetComponent<PlayerController>().coins -= kaboomsPrice;
@@ -37,7 +38,7 @@ public class Shop : MonoBehaviour
 
     public void BuyHealthPotion()
     {
-        if (player.GetComponent<PlayerController>().coins > healthPotionPrice)
+        if (player.GetComponent<PlayerController>().coins >= healthPotionPrice)
         {
             player.GetComponent<PlayerController>().healthPotions += 1;
             player.GetComponent<PlayerController>().coins -= healthPotionPrice;

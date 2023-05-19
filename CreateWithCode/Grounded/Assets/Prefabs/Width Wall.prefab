@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2694952868705481803}
   - component: {fileID: 6251923426720181593}
   - component: {fileID: 1352078435795979347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Width Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4943325836658834239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 11}
+  m_LocalScale: {x: 1, y: 1, z: 13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

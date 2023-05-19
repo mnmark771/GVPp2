@@ -19,6 +19,14 @@ TagManager:
   - Boomerang
   - Chest
   - Shop
+  - Boss Two
+  - Wandering Enemy
+  - Head
+  - Key Door
+  - Door
+  - Key
+  - One Up
+  - Wizard Enemy
   layers:
   - Default
   - TransparentFX
@@ -31,7 +39,7 @@ TagManager:
   - Wall
   - Breakable
   - Interactable
-  - 
+  - Spike Trap
   - 
   - 
   - 

@@ -26,7 +26,7 @@ public class BasicEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemyRb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
-
+        SetRandomDestination();
         player = GameObject.Find("Player");
     }
 
@@ -34,17 +34,11 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
         if (agent.remainingDistance <= 1.3)
-        {
-            if (target == player)
-            {
-                target.GetComponent<PlayerController>().TakeDamage(enemyDamage);
-            }
-
+        {   
             if (target != player)
             {
                 StartCoroutine(StopAndThrow());
             }
-
             SetRandomDestination();
         }
 
@@ -55,7 +49,7 @@ public class BasicEnemy : MonoBehaviour
             agent.SetDestination(target.transform.position);
         }
 
-        if (!hitPlayer)
+        else
         {
             target = null;
         }
@@ -104,6 +98,31 @@ public class BasicEnemy : MonoBehaviour
         Instantiate(enemyProjectilePrefab, transform.position, transform.rotation);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            SetRandomDestination();
+        }
+
+        else if (collision.gameObject.CompareTag("Key Door"))
+        {
+            SetRandomDestination();
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Door"))
+        {
+            SetRandomDestination();
+        }
+
+        else if (collision.gameObject.CompareTag("Key Door"))
+        {
+            SetRandomDestination();
+        }
+    }
 
     void OnDrawGizmosSelected()
     {
