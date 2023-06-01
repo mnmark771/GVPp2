@@ -7,7 +7,7 @@ public class BossTwoHead : MonoBehaviour
     private GameObject player;
     private Renderer BossTwoHeadRenderer;
     public GameObject enemyProjectilePrefab;
-    private float maxHealth = 3;
+    public float maxHealth = 3;
     private float startDelay = 3;
     private float repeatRate = 3;
     public float currentHealth;

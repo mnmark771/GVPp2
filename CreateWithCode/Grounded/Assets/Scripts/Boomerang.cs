@@ -6,6 +6,7 @@ public class Boomerang : MonoBehaviour
 {
     private float speed = 10;
     public bool comeBack;
+    private bool detecting = true;
     public LayerMask enemyLayers;
     private float projectileDamage = 1;
     private GameObject player;
@@ -20,19 +21,53 @@ public class Boomerang : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Collider[] hitEnemies = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, enemyLayers);
-        foreach(Collider enemy in hitEnemies)
+        if (detecting)
         {
-            if (enemy.CompareTag("Enemy"))
+            Collider[] hitEnemies = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, enemyLayers);
+            foreach(Collider enemy in hitEnemies)
             {
-                enemy.GetComponent<BasicEnemy>().TakeDamage(projectileDamage);
-                comeBack = true;
-            }
+                if (enemy.CompareTag("Enemy"))
+                {
+                    enemy.GetComponent<BasicEnemy>().TakeDamage(projectileDamage);
+                    comeBack = true;
+                    detecting = false;
+                }
 
-            else if (enemy.CompareTag("Dragon Boss"))
-            {
-                enemy.GetComponent<DragonBoss>().TakeDamage(projectileDamage);
+                else if (enemy.CompareTag("Dragon Boss"))
+                {
+                    enemy.GetComponent<DragonBoss>().TakeDamage(projectileDamage);
+                    comeBack = true;
+                    detecting = false;
+                }
+                
+                else if (enemy.CompareTag("Wandering Enemy"))
+                {
+                    enemy.GetComponent<WanderEnemy>().TakeDamage(projectileDamage);
+                    comeBack = true;
+                    detecting = false;
+                }
+
+                else if (enemy.CompareTag("Boss Two"))
+                {
+                    enemy.GetComponent<BossTwo>().TakeDamage(projectileDamage);
+                    comeBack = true;
+                    detecting = false;
+                }
+
+                else if (enemy.CompareTag("Head"))
+                {
+                    enemy.GetComponent<BossTwoHead>().TakeDamage(projectileDamage);
+                    comeBack = true;
+                    detecting = false;
+                }
+
+                else if (enemy.CompareTag("Wizard Enemy"))
+                {
+                    enemy.GetComponent<WizardEnemy>().TakeDamage(projectileDamage);
+                    comeBack = true;
+                    detecting = false;
+                }
+
                 comeBack = true;
             }
         }
@@ -45,6 +80,15 @@ public class Boomerang : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Door") || collision.gameObject.CompareTag("Key Door"))
+        {
+            comeBack = true;
+            detecting = false;
         }
     }
 

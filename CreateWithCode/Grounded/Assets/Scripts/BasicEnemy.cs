@@ -14,7 +14,7 @@ public class BasicEnemy : MonoBehaviour
     public GameObject LifePickupPrefab;
     public GameObject KaboomPickupPrefab;
     public float enemyRange = 5.5f;
-    public float knockBack;
+    public float knockBack = 8.0f;
     private float maxHealth = 3;
     public float currentHealth;
     private float enemyDamage = 1.0f;
@@ -77,7 +77,7 @@ public class BasicEnemy : MonoBehaviour
 
     public void Eliminate()
     {
-        var randomDrop = Random.Range(1,3);
+        var randomDrop = Random.Range(1,9);
         if (randomDrop == 1)
         {
             Instantiate(KaboomPickupPrefab, transform.position, transform.rotation);

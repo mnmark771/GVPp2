@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8802339527701766923}
   - component: {fileID: 7147954021804389251}
   m_Layer: 0
-  m_Name: Conditioal Key
+  m_Name: Conditional Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,5 +55,8 @@ MonoBehaviour:
   enemy9: {fileID: 0}
   enemy10: {fileID: 0}
   conditionalParent: {fileID: 0}
+  makeActive: {fileID: 0}
   keyPrefab: {fileID: 6471546831670016289, guid: bf88939fbda34bf479e3b1812d2a645b, type: 3}
   hasKey: 1
+  clearCondition: 1
+  childCondition: 0

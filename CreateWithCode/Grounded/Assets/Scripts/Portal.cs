@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Portal : MonoBehaviour
 {
     public Vector3 teleportTo;
+    public string dungeon;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,9 @@ public class Portal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.transform.position = teleportTo;
+            other.GetComponent<PlayerController>().SaveStats();
+            SceneManager.LoadScene(dungeon);
+            //other.gameObject.transform.position = teleportTo;
         }
     }
 }

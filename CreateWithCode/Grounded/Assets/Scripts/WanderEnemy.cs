@@ -31,11 +31,6 @@ public class WanderEnemy : MonoBehaviour
     {
         if (agent.remainingDistance <= 0.7)
         {
-            if (target == player)
-            {
-                target.GetComponent<PlayerController>().TakeDamage(enemyDamage);
-            }
-
             SetRandomDestination();
         }
 
@@ -46,7 +41,7 @@ public class WanderEnemy : MonoBehaviour
             agent.SetDestination(target.transform.position);
         }
 
-        if (!hitPlayer)
+        else
         {
             target = null;
         }
@@ -72,7 +67,7 @@ public class WanderEnemy : MonoBehaviour
 
     public void Eliminate()
     {
-        var randomDrop = Random.Range(1,2);
+        var randomDrop = Random.Range(1,5);
         if (randomDrop == 1)
         {
             Instantiate(LifePickupPrefab, transform.position, transform.rotation);

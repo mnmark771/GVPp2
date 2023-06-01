@@ -58,6 +58,26 @@ public class Kaboom : MonoBehaviour
             {
                 objectHit.GetComponent<DragonBoss>().TakeDamage(popDamage);
             }
+
+            if (objectHit.CompareTag("Wandering Enemy"))
+            {
+                objectHit.GetComponent<WanderEnemy>().TakeDamage(popDamage);
+            }
+
+            if (objectHit.CompareTag("Boss Two"))
+            {
+                objectHit.GetComponent<BossTwo>().TakeDamage(popDamage);
+            }
+
+            if (objectHit.CompareTag("Head"))
+            {
+                objectHit.GetComponent<BossTwoHead>().TakeDamage(popDamage);
+            }
+
+            if (objectHit.CompareTag("Wizard Enemy"))
+            {
+                objectHit.GetComponent<WizardEnemy>().TakeDamage(popDamage);
+            }
         }
     }
 

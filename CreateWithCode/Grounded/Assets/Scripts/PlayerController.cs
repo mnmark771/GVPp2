@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
     public LayerMask enemyLayers;
+    public LayerMask interactableLayers;
+
     public Slider playerHealthbar;
     public Slider playerStaminabar;
+
     private Rigidbody playerRb;
+
     private Animator playerAnim;
+
     private AudioSource playerAudio;
+
     private Renderer playerRenderer;
 
     public ParticleSystem coinParticle;
@@ -70,6 +78,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetString("currentScene", SceneManager.GetActiveScene().name);
+        LoadStats();
         itemList.Add("Kaboom");
         itemList.Add("Boomerang");
         itemList.Add("Health Potion");
@@ -147,6 +157,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Interaction()
+    {
+        Collider[] interactingWith = Physics.OverlapSphere(rangePosition.position, playerRange, interactableLayers);
+        foreach(Collider interactable in interactingWith)
+        {
+            if (interactable.CompareTag("Sign"))
+            {
+                interactable.GetComponent<Sign>().Interact();
+                inMenu = true;
+            }
+
+            else if (interactable.CompareTag("Chest"))
+            {
+                interactable.GetComponent<Chest>().Open();
+            }
+
+            else if (interactable.CompareTag("Shop"))
+            {
+                Time.timeScale = 0;
+                shopPanel.SetActive(true);
+                inMenu = true;
+            }
+
+            else if (interactable.CompareTag("Key Door"))
+            {
+                interactable.GetComponent<KeyDoor>().Open();
+            }
+
+            else if (interactable.CompareTag("Door"))
+            {
+                Destroy(GameObject.Find("Start Portal"));
+                Destroy(interactable.gameObject);
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -178,6 +224,11 @@ public class PlayerController : MonoBehaviour
                 Instantiate(pizzaProjectilePrefab, transform.position, transform.rotation);
             }
             nextAttackTime = Time.time + 1f/attackRate;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && !inMenu)
+        {
+            Interaction();
         }
 
         if (playerStaminabar.value < 1)
@@ -288,6 +339,15 @@ public class PlayerController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Boomerang"))
+        {
+            if (other.gameObject.GetComponent<Boomerang>().comeBack == true)
+            {
+                canBoomerang = true;
+                Destroy(other.gameObject);
+            }
+        }
+
         if (other.CompareTag("Coin"))
         {
             coins += 1;
@@ -329,51 +389,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Sign"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                other.GetComponent<Sign>().Interact();
-                inMenu = true;
-            }
-        }
 
-        else if (other.CompareTag("Chest"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                other.GetComponent<Chest>().Open();
-            }
-        }
-
-        else if (other.CompareTag("Shop"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Time.timeScale = 0;
-                shopPanel.SetActive(true);
-                inMenu = true;
-            }
-        }
-
-        else if (other.CompareTag("Key Door"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                other.GetComponent<KeyDoor>().Open();
-            }
-        }
-
-        else if (other.CompareTag("Door"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Destroy(other.gameObject);
-            }
-        }
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -382,21 +398,12 @@ public class PlayerController : MonoBehaviour
             TakeDamage(1);
         }
 
-        else if (collision.gameObject.CompareTag("Boomerang"))
-        {
-            if (collision.gameObject.GetComponent<Boomerang>().comeBack)
-            {
-                canBoomerang = true;
-                Destroy(collision.gameObject);
-            }
-        }
-
-        else if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(1);
         }
 
-        else if (collision.gameObject.CompareTag("Wandering Enemy"))
+        if (collision.gameObject.CompareTag("Wandering Enemy"))
         {
             TakeDamage(1);
         }
@@ -433,5 +440,31 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         playerRenderer.material.SetColor("_Color", Color.white);
         isImmortal = false;
+    }
+
+    public IEnumerator SignWait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        inMenu = false;
+    }
+
+    public void SaveStats()
+    {
+        PlayerPrefs.SetInt("keys", keys);
+        PlayerPrefs.SetInt("coins", coins);
+        PlayerPrefs.SetInt("kabooms", kabooms);
+        PlayerPrefs.SetInt("healthPotions", healthPotions);
+        PlayerPrefs.SetFloat("currentHealth", currentHealth);
+        PlayerPrefs.SetFloat("maxHealth", maxHealth);
+    }
+
+    public void LoadStats()
+    {
+        keys = PlayerPrefs.GetInt("keys");
+        coins = PlayerPrefs.GetInt("coins");
+        kabooms = PlayerPrefs.GetInt("kabooms");
+        healthPotions = PlayerPrefs.GetInt("healthPotions");
+        currentHealth = PlayerPrefs.GetFloat("currentHealth");
+        maxHealth = PlayerPrefs.GetFloat("maxHealth");
     }
 }

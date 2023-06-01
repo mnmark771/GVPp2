@@ -10,7 +10,7 @@ public class Sign : MonoBehaviour
     public GameObject interactPanel;
     public GameObject player;
     public TextMeshProUGUI interactText;
-    private int textNumber = 0;
+    private int textNumber = 1;
     private int signLength = 0;
     private bool isInteracting;
     public string aText = "";
@@ -20,14 +20,12 @@ public class Sign : MonoBehaviour
     public string eText = "";
     public string fText = "";
     public string gText = "";
-    private string currentText;
     private List<string> textList = new List<string>();
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        textList.Add("Start");
         textList.Add(aText);
         textList.Add(bText);
         textList.Add(cText);
@@ -47,12 +45,19 @@ public class Sign : MonoBehaviour
         {
             NextText();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Quit();
+        }
     }
 
     public void Interact()
     {
         if (!isInteracting)
         {
+            textNumber = 0;
+            interactText.text = textList[textNumber];
             isInteracting = true;
             Time.timeScale = 0;
             interactPanel.SetActive(true);
@@ -62,10 +67,9 @@ public class Sign : MonoBehaviour
     public void Quit()
     {
         Time.timeScale = 1;
-        textNumber = 0;
         isInteracting = false;
         interactPanel.SetActive(false);
-        player.GetComponent<PlayerController>().inMenu = false;
+        StartCoroutine(player.GetComponent<PlayerController>().SignWait());
     }
 
     private void NextText()

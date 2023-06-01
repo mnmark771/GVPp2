@@ -13,7 +13,7 @@ public class WizardEnemy : MonoBehaviour
     private float maxHealth = 3;
     public float currentHealth;
     private float startDelay = 1;
-    private float repeatRate = 2;
+    private float repeatRate = 2.5f;
     private Vector3 startPosition;
 
     // Start is called before the first frame update
@@ -39,8 +39,8 @@ public class WizardEnemy : MonoBehaviour
 
     public void MoveRandomDestination()
     {
-        var randomXPos = Random.Range(startPosition.x - 8.0f, startPosition.x + 8.0f);
-        var randomZPos = Random.Range(startPosition.z - 5.5f, startPosition.z + 5.5f);
+        var randomXPos = Random.Range(startPosition.x - 7.0f, startPosition.x + 7.0f);
+        var randomZPos = Random.Range(startPosition.z - 4.5f, startPosition.z + 4.5f);
         Vector3 randomDestination = new Vector3(randomXPos, startPosition.y, randomZPos);
         transform.position = randomDestination;
         
@@ -58,15 +58,11 @@ public class WizardEnemy : MonoBehaviour
 
     public void Eliminate()
     {
-        var randomDrop = Random.Range(1,3);
+        var randomDrop = Random.Range(1,6);
+        Instantiate(KaboomPickupPrefab, new Vector3(transform.position.x, 1.0f, transform.position.z), transform.rotation);
         if (randomDrop == 1)
         {
-            Instantiate(KaboomPickupPrefab, transform.position, transform.rotation);
-        }
-
-        if (randomDrop == 2)
-        {
-            Instantiate(LifePickupPrefab, transform.position, transform.rotation);
+            Instantiate(LifePickupPrefab, new Vector3(transform.position.x, 1.0f, transform.position.z), transform.rotation);
         }
 
         Destroy(gameObject);
@@ -75,9 +71,8 @@ public class WizardEnemy : MonoBehaviour
     IEnumerator MagicMove()
     {
         MoveRandomDestination();
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         transform.LookAt(player.transform);
         Instantiate(enemyProjectilePrefab, transform.position, transform.rotation);
-        yield return new WaitForSeconds(5.0f);
     }
 }

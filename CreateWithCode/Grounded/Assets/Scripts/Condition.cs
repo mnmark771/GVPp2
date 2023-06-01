@@ -14,11 +14,14 @@ public class Condition : MonoBehaviour
     public GameObject enemy8;
     public GameObject enemy9;
     public GameObject enemy10;
-    //public GameObject conditionalParent;
+    public GameObject conditionalParent;
+    public GameObject makeActive;
 
     public GameObject keyPrefab;
 
     public bool hasKey = false;
+    public bool clearCondition = false;
+    public bool childCondition = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +32,7 @@ public class Condition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemy1 == null && enemy2 == null && enemy3 == null && enemy4 == null && enemy5 == null && enemy6 == null && enemy7 == null && enemy8 == null && enemy9 == null && enemy10 == null)
+        if (clearCondition && enemy1 == null && enemy2 == null && enemy3 == null && enemy4 == null && enemy5 == null && enemy6 == null && enemy7 == null && enemy8 == null && enemy9 == null && enemy10 == null)
         {
             if (hasKey)
             {
@@ -37,11 +40,10 @@ public class Condition : MonoBehaviour
             }
             Destroy(gameObject);
         }
-/*
-        if (conditionalParent.transform.GetChild(0) == null)
+
+        if (childCondition && conditionalParent.transform.childCount == 0)
         {
-            return;
+            makeActive.SetActive(true);
         }
-        */
     }
 }

@@ -11,10 +11,12 @@ public class BossTwo : MonoBehaviour
     private float maxHealth = 5;
     public float currentHealth;
     private float enemyDamage = 1.0f;
+    private Vector3 startPosition;
 
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = transform.position;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         BossTwoRenderer = gameObject.GetComponent<Renderer>();
         currentHealth = maxHealth;
@@ -31,9 +33,9 @@ public class BossTwo : MonoBehaviour
     
     public void SetRandomDestination()
     {
-        var randomXPos = Random.Range(transform.position.x - 8.0f, transform.position.x + 8.0f);
-        var randomZPos = Random.Range(transform.position.z - 5.5f, transform.position.z + 5.5f);
-        Vector3 randomDestination = new Vector3(randomXPos, transform.position.y, randomZPos);
+        var randomXPos = Random.Range(startPosition.x - 7.0f, startPosition.x + 7.0f);
+        var randomZPos = Random.Range(startPosition.z - 4.5f, startPosition.z + 4.5f);
+        Vector3 randomDestination = new Vector3(randomXPos, startPosition.y, randomZPos);
         agent.SetDestination(randomDestination);
         
     }

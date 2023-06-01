@@ -54,22 +54,22 @@ public class SpikeTrap : MonoBehaviour
         }
         if(up)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
         }
 
         if(down)
         {
-            transform.Translate(-Vector3.forward * Time.deltaTime * speed);
+            transform.Translate(-Vector3.forward * Time.deltaTime * speed, Space.World);
         }
 
         if(left)
         {
-            transform.Translate(Vector3.left * Time.deltaTime * speed);
+            transform.Translate(Vector3.left * Time.deltaTime * speed, Space.World);
         }
 
         if(right)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
+            transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
         }
 
         if(!up && !down && !left && !right)

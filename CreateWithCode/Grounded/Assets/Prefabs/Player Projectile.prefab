@@ -112,5 +112,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 2312
+    m_Bits: 3336
   detecting: 1
