@@ -5,7 +5,10 @@ using UnityEngine.AI;
 
 public class BossTwo : MonoBehaviour
 {
+    public bool isBoss;
     public GameObject target;
+    private GameObject player;
+    public GameObject oneUpPrefab;
     private NavMeshAgent agent;
     private Renderer BossTwoRenderer;
     private float maxHealth = 5;
@@ -16,6 +19,7 @@ public class BossTwo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         startPosition = transform.position;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         BossTwoRenderer = gameObject.GetComponent<Renderer>();
@@ -52,6 +56,10 @@ public class BossTwo : MonoBehaviour
 
     private void Eliminate()
     {
+        if (isBoss && player.GetComponent<PlayerController>().maxHealth < 5)
+        {
+            Instantiate(oneUpPrefab, transform.position, transform.rotation);
+        }
         Destroy(gameObject);
     }
 

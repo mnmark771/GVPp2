@@ -4810,6 +4810,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7653817694172401810, guid: 393b62988575ee54580eff20fa90165a, type: 3}
   m_PrefabInstance: {fileID: 442607792}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &395291478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7277954854549760481, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
+  m_PrefabInstance: {fileID: 823500692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &398658373 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1940945046889889428, guid: 92e93ee9ea7224e489c7fd7a806d1632, type: 3}
@@ -9067,6 +9072,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: End Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 7277954854549760481, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7277954854549760486, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
       propertyPath: dungeon
       value: TheMaze
@@ -10731,10 +10740,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
       propertyPath: coins
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
       propertyPath: kabooms
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
+      propertyPath: bossChest
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
@@ -10742,8 +10755,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1655688644}
     - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
+      propertyPath: endPortal
+      value: 
+      objectReference: {fileID: 395291478}
+    - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
+      propertyPath: bossNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
       propertyPath: healthPotions
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
+      propertyPath: bossNumberPlusOne
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5173289540290276443, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
       propertyPath: m_RootOrder
@@ -19766,6 +19791,7 @@ MonoBehaviour:
   kabooms: 1
   healthPotions: 0
   currentItemNumber: 0
+  masterKey: 0
   hasBoomerang: 0
   isImmortal: 0
   inMenu: 0

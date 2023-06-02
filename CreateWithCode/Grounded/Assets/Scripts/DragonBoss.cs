@@ -6,6 +6,7 @@ public class DragonBoss : MonoBehaviour
 {
     public GameObject enemyProjectilePrefab;
     public GameObject oneUpPrefab;
+    private GameObject player;
 
     public LayerMask playerLayer;
 
@@ -26,6 +27,7 @@ public class DragonBoss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         startPosition = transform.position;
         destination = transform.position + new Vector3(0.0f, 0.0f, 1.0f);
         //InvokeRepeating("BreatheFire", startDelay, repeatRate);
@@ -90,7 +92,7 @@ public class DragonBoss : MonoBehaviour
 
     public void Eliminate()
     {
-        if (isBoss)
+        if (isBoss && player.GetComponent<PlayerController>().maxHealth < 4)
         {
             Instantiate(oneUpPrefab, transform.position, transform.rotation);
         }

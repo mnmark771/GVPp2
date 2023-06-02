@@ -9,8 +9,12 @@ public class Chest : MonoBehaviour
     public int coins;
     public int kabooms;
     public int healthPotions;
+    public int bossNumberPlusOne = 0;
+    public bool bossChest;
+    private bool isOpen;
     public TextMeshProUGUI chestText;
     private GameObject player;
+    public GameObject endPortal;
     
     // Start is called before the first frame update
     void Start()
@@ -26,16 +30,34 @@ public class Chest : MonoBehaviour
 
     public void Open()
     {
-        StartCoroutine(TellPlayer());
-        var playerScript = player.GetComponent<PlayerController>();
-        playerScript.kabooms += kabooms;
-        playerScript.healthPotions += healthPotions;
-        playerScript.coins += coins;
-        playerScript.UpdateUI();
+        if (!isOpen)
+        {
+            isOpen = true;
+            var playerScript = player.GetComponent<PlayerController>();
+            playerScript.kabooms += kabooms;
+            playerScript.healthPotions += healthPotions;
+            playerScript.coins += coins;
+            playerScript.UpdateUI();
+            endPortal.SetActive(true);
+            StartCoroutine(TellPlayer());
+            if (bossChest)
+            {
+                if (playerScript.masterKey < bossNumberPlusOne)
+                {
+                    playerScript.masterKey = bossNumberPlusOne;
+                }
+                playerScript.SaveStats();
+            }
+        }
     }
 
     IEnumerator TellPlayer()
     {
+        if (bossChest)
+        {
+            chestText.text = "Dungeon Two Key";
+            yield return new WaitForSeconds(1.0f);
+        }
         chestText.text = "Coin x" + coins;
         yield return new WaitForSeconds(1.0f);
         chestText.text = "Health Potion x" + healthPotions;

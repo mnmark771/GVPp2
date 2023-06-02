@@ -8,6 +8,8 @@ public class Portal : MonoBehaviour
 {
     public Vector3 teleportTo;
     public string dungeon;
+    public bool needKey;
+    public int needNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +26,21 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
-            other.GetComponent<PlayerController>().SaveStats();
-            SceneManager.LoadScene(dungeon);
+        {   
+            if (needKey)
+            {
+                if (other.GetComponent<PlayerController>().masterKey >= needNumber)
+                {
+                    other.GetComponent<PlayerController>().SaveStats();
+                    SceneManager.LoadScene(dungeon);
+                }
+            }
+
+            else
+            {
+                other.GetComponent<PlayerController>().SaveStats();
+                SceneManager.LoadScene(dungeon);
+            }
             //other.gameObject.transform.position = teleportTo;
         }
     }

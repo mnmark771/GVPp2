@@ -52,14 +52,17 @@ public class PlayerController : MonoBehaviour
     private float attackRate = 1.0f;
     private float nextAttackTime = 0.0f;
     private float playerDamage = 1.0f;
-    private float maxHealth = 3.0f;
+    private float fillTime = 0.0f;
+
+    public float maxHealth = 3.0f;
     private float currentHealth;
+
     public int keys = 0;
     public int coins = 0;
     public int kabooms = 0;
     public int healthPotions = 0;
     public int currentItemNumber = 0;
-    private float fillTime = 0.0f;
+    public int masterKey = 0;
 
     private bool isGameActive = true;
     private bool missed = true;
@@ -91,6 +94,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         playerRenderer = gameObject.GetComponent<Renderer>();
+        UpdateUI();
     }
 
     // Draw the player's range
@@ -456,6 +460,7 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.SetInt("healthPotions", healthPotions);
         PlayerPrefs.SetFloat("currentHealth", currentHealth);
         PlayerPrefs.SetFloat("maxHealth", maxHealth);
+        PlayerPrefs.SetInt("masterKey", masterKey);
     }
 
     public void LoadStats()
@@ -466,5 +471,6 @@ public class PlayerController : MonoBehaviour
         healthPotions = PlayerPrefs.GetInt("healthPotions");
         currentHealth = PlayerPrefs.GetFloat("currentHealth");
         maxHealth = PlayerPrefs.GetFloat("maxHealth");
+        masterKey = PlayerPrefs.GetInt("masterKey");
     }
 }

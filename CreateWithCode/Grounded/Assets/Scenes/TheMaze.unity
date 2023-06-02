@@ -19930,6 +19930,7 @@ MonoBehaviour:
   kabooms: 1
   healthPotions: 0
   currentItemNumber: 0
+  masterKey: 0
   hasBoomerang: 0
   isImmortal: 0
   inMenu: 0
@@ -22470,6 +22471,14 @@ PrefabInstance:
     - target: {fileID: 7277954854549760486, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
       propertyPath: dungeon
       value: Dungeon Two
+      objectReference: {fileID: 0}
+    - target: {fileID: 7277954854549760486, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
+      propertyPath: needKey
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7277954854549760486, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
+      propertyPath: needNumber
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7277954854549760490, guid: d08b236a44b522a45b202f81d574ab82, type: 3}
       propertyPath: m_RootOrder

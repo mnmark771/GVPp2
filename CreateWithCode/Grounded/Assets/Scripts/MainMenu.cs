@@ -27,5 +27,6 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetFloat("currentHealth", 3);
         PlayerPrefs.SetFloat("maxHealth", 3);
         PlayerPrefs.SetString("currentScene", "TheMaze");
+        PlayerPrefs.SetInt("masterKey", 0);
     }
 }

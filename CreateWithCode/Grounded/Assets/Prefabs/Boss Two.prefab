@@ -115,7 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c51e17c2d2bdae43973d7e15eca6c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   target: {fileID: 0}
+  oneUpPrefab: {fileID: 9191425406709074803, guid: 85917f88559d39b46837d9e8dc349ba3, type: 3}
   currentHealth: 0
 --- !u!195 &936082129
 NavMeshAgent:
