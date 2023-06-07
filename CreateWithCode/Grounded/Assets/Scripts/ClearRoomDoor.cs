@@ -31,10 +31,6 @@ public class ClearRoomDoor : MonoBehaviour
     {
         if (enemy1 == null && enemy2 == null && enemy3 == null && enemy4 == null && enemy5 == null && enemy6 == null && enemy7 == null && enemy8 == null && enemy9 == null && enemy10 == null)
         {
-            if (hasKey)
-            {
-                Instantiate(keyPrefab, transform.position, transform.rotation);
-            }
             Destroy(gameObject);
         }
     }

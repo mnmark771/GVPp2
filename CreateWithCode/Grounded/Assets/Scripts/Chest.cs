@@ -38,10 +38,10 @@ public class Chest : MonoBehaviour
             playerScript.healthPotions += healthPotions;
             playerScript.coins += coins;
             playerScript.UpdateUI();
-            endPortal.SetActive(true);
             StartCoroutine(TellPlayer());
             if (bossChest)
             {
+                endPortal.SetActive(true);
                 if (playerScript.masterKey < bossNumberPlusOne)
                 {
                     playerScript.masterKey = bossNumberPlusOne;
@@ -55,7 +55,7 @@ public class Chest : MonoBehaviour
     {
         if (bossChest)
         {
-            chestText.text = "Dungeon Two Key";
+            chestText.text = "Dungeon Key";
             yield return new WaitForSeconds(1.0f);
         }
         chestText.text = "Coin x" + coins;

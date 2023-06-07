@@ -2223,6 +2223,10 @@ PrefabInstance:
       propertyPath: chestText
       value: 
       objectReference: {fileID: 7644125011822916463}
+    - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
+      propertyPath: endPortal
+      value: 
+      objectReference: {fileID: 1981476221}
     - target: {fileID: 5173289540290276443, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -8307,6 +8311,10 @@ PrefabInstance:
       propertyPath: chestText
       value: 
       objectReference: {fileID: 7644125011822916463}
+    - target: {fileID: 3455730165958684572, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
+      propertyPath: endPortal
+      value: 
+      objectReference: {fileID: 1981476221}
     - target: {fileID: 5173289540290276443, guid: 0f3b3ee3ab92ee740bb7d9ed4fce76f0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8479,7 +8487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5783532443891950079, guid: 254ba28f953702d45b87e7f0e389b21c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 85.06
+      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 5783532443891950079, guid: 254ba28f953702d45b87e7f0e389b21c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10792,7 +10800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1018159647331009757, guid: 0d94f8d19ae983c429e53bc84b0656f1, type: 3}
       propertyPath: aText
-      value: Thank you for saving me Traveler
+      value: Thank you for saving me traveler
       objectReference: {fileID: 0}
     - target: {fileID: 1018159647331009757, guid: 0d94f8d19ae983c429e53bc84b0656f1, type: 3}
       propertyPath: bText

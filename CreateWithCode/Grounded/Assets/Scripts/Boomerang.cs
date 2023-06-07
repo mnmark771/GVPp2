@@ -68,6 +68,36 @@ public class Boomerang : MonoBehaviour
                     detecting = false;
                 }
 
+                else if (enemy.CompareTag("Wall"))
+                {
+                    comeBack = true;
+                }
+    
+                else if (enemy.CompareTag("Breakable Wall"))
+                {
+                    comeBack = true;
+                }
+            
+                else if (enemy.CompareTag("Key Door"))
+                {
+                    comeBack = true;
+                }
+    
+                else if (enemy.CompareTag("Sign"))
+                {
+                    comeBack = true;
+                }
+
+                else if (enemy.CompareTag("Door"))
+                {
+                    comeBack = true;
+                }
+
+                else if (enemy.CompareTag("Clear Room Door"))
+                {
+                    comeBack = true;
+                }
+
                 comeBack = true;
             }
         }

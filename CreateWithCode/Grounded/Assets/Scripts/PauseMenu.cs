@@ -59,6 +59,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Respawn()
     {
-        SceneManager.LoadScene("TheMaze");
+        SceneManager.LoadScene(PlayerPrefs.GetString("currentScene"));
     }
 }

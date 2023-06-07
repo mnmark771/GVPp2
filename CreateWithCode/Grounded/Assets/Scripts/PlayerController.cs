@@ -341,6 +341,18 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Boomerang"))
+        {
+            if (other.gameObject.GetComponent<Boomerang>().comeBack == true)
+            {
+                canBoomerang = true;
+                Destroy(other.gameObject);
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Boomerang"))
