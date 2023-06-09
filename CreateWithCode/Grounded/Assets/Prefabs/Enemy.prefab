@@ -158,5 +158,5 @@ MonoBehaviour:
   LifePickupPrefab: {fileID: 725953155658974848, guid: 720fc12f3f28cb049a0a2e3def4cfdbf, type: 3}
   KaboomPickupPrefab: {fileID: 2146541745645864678, guid: bae2f4bc21127054fa89e4e14c5276df, type: 3}
   enemyRange: 5.5
-  knockBack: 7
+  knockBack: 8
   currentHealth: 0
